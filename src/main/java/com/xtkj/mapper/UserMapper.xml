@@ -68,4 +68,7 @@
       user_pwd = #{userPwd,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+  <select id="getUsers" resultMap="BaseResultMap">
+    select * from tbuser
+  </select>
 </mapper>
