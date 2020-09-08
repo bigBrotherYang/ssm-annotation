@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xtkj.dao.BankMapper">
+  <resultMap id="BaseResultMap" type="com.xtkj.pojo.Bank">
+    <id column="b_id" jdbcType="INTEGER" property="bId" />
+    <result column="b_name" jdbcType="VARCHAR" property="bName" />
+    <result column="b_money" jdbcType="REAL" property="bMoney" />
+    <result column="money" jdbcType="REAL" property="money" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    b_id, b_name, b_money, money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bank
+    where b_id = #{bId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bank
+    where b_id = #{bId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xtkj.pojo.Bank">
+    insert into bank (b_id, b_name, b_money, 
+      money)
+    values (#{bId,jdbcType=INTEGER}, #{bName,jdbcType=VARCHAR}, #{bMoney,jdbcType=REAL}, 
+      #{money,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xtkj.pojo.Bank">
+    insert into bank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bId != null">
+        b_id,
+      </if>
+      <if test="bName != null">
+        b_name,
+      </if>
+      <if test="bMoney != null">
+        b_money,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bId != null">
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="bName != null">
+        #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bMoney != null">
+        #{bMoney,jdbcType=REAL},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xtkj.pojo.Bank">
+    update bank
+    <set>
+      <if test="bName != null">
+        b_name = #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bMoney != null">
+        b_money = #{bMoney,jdbcType=REAL},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=REAL},
+      </if>
+    </set>
+    where b_id = #{bId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xtkj.pojo.Bank">
+    update bank
+    set b_name = #{bName,jdbcType=VARCHAR},
+      b_money = #{bMoney,jdbcType=REAL},
+      money = #{money,jdbcType=REAL}
+    where b_id = #{bId,jdbcType=INTEGER}
+  </update>
+</mapper>
